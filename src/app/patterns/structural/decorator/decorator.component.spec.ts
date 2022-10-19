@@ -1,58 +1,14 @@
-import { Product } from "./product";
-import { BasePrice } from "./base-price";
-import { SpecialPriceDecorator } from "./decorators/special-price.decorator";
-import { VipCustomerDecorator } from "./decorators/vip-customer.decorator";
+import { DecoratorComponent } from "./decorator.component";
 
-describe("Product price", () => {
-    it("base price", () => {
-        const product = new Product("Guitara Suhr Classic", 2500);
+const decorator = new DecoratorComponent();
 
-        let specialPrice = new BasePrice();
+describe("Decorator Component", () => {
+  it("value must be saved in localStorage", async () => {
 
-        product.setSpecialPrice(
-            specialPrice.calculate(product.price));
+    decorator.setData()
 
-      expect(true).toEqual(product.specialPrice === 0);
+    const value = decorator.currentItemsPerPage;
 
-    });
-
-    it("special price discount", () => {
-        const product = new Product("Guitara Suhr Classic", 2500);
-
-        let specialPrice = new BasePrice();
-
-        specialPrice = new SpecialPriceDecorator(specialPrice);
-
-        product.setSpecialPrice(
-            specialPrice.calculate(product.price));
-
-        expect(true).toEqual(product.price > product.specialPrice);
-    });
-
-    it("vip customer discount", () => {
-        const product = new Product("Guitara Suhr Classic", 2500);
-
-        let specialPrice = new BasePrice();
-
-        specialPrice = new VipCustomerDecorator(specialPrice);
-
-        product.setSpecialPrice(
-            specialPrice.calculate(product.price));
-
-        expect(true).toEqual(product.price > product.specialPrice);
-    });
-
-    it("special price and vip customer discount", () => {
-        const product = new Product("Guitara Suhr Classic", 2500);
-
-        let specialPrice = new BasePrice();
-
-        specialPrice = new SpecialPriceDecorator(specialPrice);
-        specialPrice = new VipCustomerDecorator(specialPrice);
-
-        product.setSpecialPrice(
-            specialPrice.calculate(product.price));
-
-        expect(true).toEqual(product.price > product.specialPrice);
-    });
+    expect(true).toBe(value === Number(localStorage.getItem("currentItemsPerPage")));
+});
 });
