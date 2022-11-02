@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { StrategyComponent } from './strategy.component';
+import ReverseStrategy from './strategy.reverse';
+import SortStrategy from './strategy.sort';
 
 describe('StrategyComponent', () => {
-  let component: StrategyComponent;
-  let fixture: ComponentFixture<StrategyComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ StrategyComponent ]
-    })
-    .compileComponents();
+  const contextReverseStrategy = new StrategyComponent(new ReverseStrategy());
+  const contextSortStrategy = new StrategyComponent(new SortStrategy());
+
+  it('should ReverseStrategy', () => {
+    const contextarrayReverse = contextReverseStrategy.doSomeBusinessLogic()
+
+    const arrayReverse = [...Array(5).keys()].reverse();
+
+    expect(JSON.stringify(arrayReverse) === JSON.stringify(contextarrayReverse)).toBeTrue();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StrategyComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should SortStrateg', () => {
+    const contextarraySort= contextSortStrategy.doSomeBusinessLogic()
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    const sortReverse = [...Array(5).keys()].sort();
+
+    expect(JSON.stringify(sortReverse) === JSON.stringify(contextarraySort)).toBeTrue();
   });
 });
