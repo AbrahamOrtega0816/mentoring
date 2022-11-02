@@ -11,6 +11,7 @@ import { ProxyComponent } from './patterns/structural/proxy/proxy.component';
 import { CommandComponent } from './patterns/behaviour/command/command.component';
 import { ObserverComponent } from './patterns/behaviour/observer/observer.component';
 import { StrategyComponent } from './patterns/behaviour/strategy/strategy.component';
+import { SolidComponent } from './solid/solid.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { StrategyComponent } from './patterns/behaviour/strategy/strategy.compon
     ProxyComponent,
     CommandComponent,
     ObserverComponent,
-    StrategyComponent
+    StrategyComponent,
+    SolidComponent
   ],
   imports: [
     BrowserModule
