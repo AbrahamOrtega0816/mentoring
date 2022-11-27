@@ -13,6 +13,7 @@ import { ObserverComponent } from './patterns/behaviour/observer/observer.compon
 import { StrategyComponent } from './patterns/behaviour/strategy/strategy.component';
 import { SolidComponent } from './solid/solid.component';
 import { SingleResponsibilityComponent } from './solid/single-responsibility/single-responsibility.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SingleResponsibilityComponent } from './solid/single-responsibility/sin
     StrategyComponent,
     SolidComponent,
     SingleResponsibilityComponent,
+    RxjsComponent,
   ],
   imports: [
     BrowserModule
