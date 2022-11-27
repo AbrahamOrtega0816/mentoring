@@ -12,6 +12,7 @@ import { CommandComponent } from './patterns/behaviour/command/command.component
 import { ObserverComponent } from './patterns/behaviour/observer/observer.component';
 import { StrategyComponent } from './patterns/behaviour/strategy/strategy.component';
 import { SolidComponent } from './solid/solid.component';
+import { SingleResponsibilityComponent } from './solid/single-responsibility/single-responsibility.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SolidComponent } from './solid/solid.component';
     CommandComponent,
     ObserverComponent,
     StrategyComponent,
-    SolidComponent
+    SolidComponent,
+    SingleResponsibilityComponent,
   ],
   imports: [
     BrowserModule
