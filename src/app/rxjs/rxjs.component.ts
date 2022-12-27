@@ -1,7 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { combineAll, from, interval, map, mapTo, merge, 
-  Observable, of, share, Subject, take, takeUntil, tap } from 'rxjs';
-import { HttpClient } from "@angular/common/http";
+import {
+  combineAll,
+  concatMap,
+  delay,
+  from,
+  fromEvent,
+  interval,
+  map,
+  mapTo,
+  merge,
+  mergeMap,
+  Observable,
+  of,
+  share,
+  Subject,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface Person {
   name: string;
@@ -13,8 +31,6 @@ export interface Person {
   styleUrls: ['./rxjs.component.css'],
 })
 export class RxjsComponent implements OnInit {
-  
-
   constructor(private http: HttpClient) {}
   loading: boolean = false;
   private unsubscribe: Subject<void> = new Subject<void>();
@@ -81,6 +97,40 @@ export class RxjsComponent implements OnInit {
     request.subscribe((data) => {
       console.log('data for posts again', data);
     });
+
+    const $button = document.getElementById('main-button') as HTMLElement;
+    const click$ = fromEvent($button, 'click');
+
+    const subscription = click$.subscribe({
+      next: (event) => console.log('Event :', event),
+    });
+
+    //emit delay value
+    const source3 = of(2000, 1000);
+    // map value from source3 into inner observable, when complete emit result and move to next
+    const example = source3.pipe(
+      concatMap((val) => of(`Delayed by: ${val}ms`).pipe(delay(Number(val))))
+    );
+    //output: With concatMap: Delayed by: 2000ms, With concatMap: Delayed by: 1000ms
+    const subscribe = example.subscribe((val) =>
+      console.log(`With concatMap: ${val}`)
+    );
+
+    // showing the difference between concatMap and mergeMap
+    const mergeMapExample = source
+      .pipe(
+        // just so we can log this after the first example has run
+        delay(5000),
+        mergeMap((val) => of(`Delayed by: ${val}ms`).pipe(delay(Number(val))))
+      )
+      .subscribe((val) => console.log(`With mergeMap: ${val}`));
+
+    fromEvent(document, 'click')
+      .pipe(
+        // restart counter on every click
+        switchMap(() => interval(1000))
+      )
+      .subscribe(console.log);
   }
 
   setLoadingSpinner(observable: Observable<Object>) {
@@ -100,7 +150,9 @@ export class RxjsComponent implements OnInit {
   mergeExample() {
     const first = interval(1000).pipe(mapTo('first'), take(5));
     const second = interval(1500).pipe(mapTo('second'), take(5));
-    merge(first, second).pipe(takeUntil(this.unsubscribe)).subscribe(console.log);
+    merge(first, second)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(console.log);
   }
 
   combineAllExample() {
