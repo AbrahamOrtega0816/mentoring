@@ -117,7 +117,7 @@ export class RxjsComponent implements OnInit {
     );
 
     // showing the difference between concatMap and mergeMap
-    const mergeMapExample = source
+    const mergeMapExample = source3
       .pipe(
         // just so we can log this after the first example has run
         delay(5000),
@@ -131,6 +131,31 @@ export class RxjsComponent implements OnInit {
         switchMap(() => interval(1000))
       )
       .subscribe(console.log);
+
+    // other examples
+
+    // using a regular map
+    from([1,2,3,4]).pipe(
+      map(param => this.getData(param))
+    ).subscribe(val => val.subscribe(data => console.log('map:', data)));
+
+    // using mergeMap
+    from([1, 2, 3 ,4]).pipe(
+      mergeMap(param => this.getData(param))
+    ).subscribe(val => console.log('mergeMap:', val));
+
+    // using concatMap
+    from([1, 2, 3 ,4]).pipe(
+      concatMap(param => this.getData(param))
+    ).subscribe(val => console.log('concatMap:', val));
+
+  }
+
+   getData(param : number) {
+    const delayTime = Math.floor(Math.random() * 10000) + 1;
+    return of(`retrieved new data with params: ${param} and delay: ${delayTime}`).pipe(
+      delay(delayTime)
+    )
   }
 
   setLoadingSpinner(observable: Observable<Object>) {

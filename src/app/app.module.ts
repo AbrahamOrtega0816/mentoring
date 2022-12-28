@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SingletonComponent } from './patterns/creation/singleton/singleton.component';
 import { FactoryComponent } from './patterns/creation/factory/factory.component';
@@ -32,7 +32,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     RxjsComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
