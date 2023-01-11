@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SingletonComponent } from './patterns/creation/singleton/singleton.component';
 import { FactoryComponent } from './patterns/creation/factory/factory.component';
@@ -47,7 +47,8 @@ import { CounterEffects } from './ngrx/store/counter/counter.effects';
       }
     }),
     !environment.production ? [] : [],
-    EffectsModule.forRoot([CounterEffects])
+    EffectsModule.forRoot([CounterEffects]),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
