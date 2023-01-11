@@ -40,6 +40,9 @@ export class RxjsComponent implements OnInit {
     const personPromise: Promise<Person> = Promise.resolve(person);
     const persObs = from(personPromise);
     persObs.subscribe((data) => {
+      if(1){
+
+      }
       console.log('person promise', data);
     });
 
