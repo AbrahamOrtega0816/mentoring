@@ -14,12 +14,11 @@ import { StrategyComponent } from './patterns/behaviour/strategy/strategy.compon
 import { SolidComponent } from './solid/solid.component';
 import { SingleResponsibilityComponent } from './solid/single-responsibility/single-responsibility.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-import { CounterComponent } from './ngrx/counter/counter.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './ngrx/store/counter/counter.state';
-import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { CounterEffects } from './ngrx/store/counter/counter.effects';
+import { heroReducer } from './ngrx/heroes/reducers/hero-reducer';
+import { ReadDeleteComponent } from './ngrx/heroes/components/read-delete/read-delete.component';
+import { CreateComponent } from './ngrx/heroes/components/create/create.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,20 +34,15 @@ import { CounterEffects } from './ngrx/store/counter/counter.effects';
     SolidComponent,
     SingleResponsibilityComponent,
     RxjsComponent,
-    CounterComponent,
+    ReadDeleteComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
-    !environment.production ? [] : [],
-    EffectsModule.forRoot([CounterEffects]),
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(
+      { heroes: heroReducer }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

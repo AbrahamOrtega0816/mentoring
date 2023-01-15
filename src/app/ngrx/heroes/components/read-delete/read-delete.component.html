@@ -1,0 +1,13 @@
+<!--read-delete.component.html-->
+
+<div class="right" *ngIf="heroes">
+
+  <h3>Heroes</h3>
+  <ul>
+    <li *ngFor="let hero of heroes | async; let i = index">
+    {{ hero.name }}: {{ hero.description }}
+      <button (click)="deleteHero(i)">delete</button>
+    </li>
+  </ul>
+
+</div>
